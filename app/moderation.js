@@ -1,4 +1,4 @@
-const {sendMessage, setChatTitle, deleteMessage, } = require('./methods');
+const {sendMessage, setChatTitle, deleteMessage,} = require('./methods');
 
 const moderation = data => {
 
@@ -8,7 +8,7 @@ const moderation = data => {
 
   const {message, callback_query} = data;
 
-  if(callback_query){
+  if (callback_query) {
     // console.log(callback_query)
   }
 
@@ -16,7 +16,7 @@ const moderation = data => {
 
     const {message_id, text = '', from: {username, last_name, first_name}, chat: {id: chat_id}} = message;
 
-    if(global.lastAction && global.lastAction==='updatechattitle'){
+    if (global.lastAction && global.lastAction === 'updatechattitle') {
 
       setChatTitle({chat_id, title: text});
       global.lastAction = '';
@@ -25,22 +25,17 @@ const moderation = data => {
     if (text.search(/^Привет/i) >= 0) {
       const userName = username || last_name || first_name;
       const responseText = `Привет, @${userName}`;
-
       sendMessage({chat_id, text: responseText})
     }
-    if (text.search(/^Удали/i) >= 0) {
 
+    if (text.search(/^Удали/i) >= 0) {
       deleteMessage({chat_id, message_id})
     }
 
     if (text.search(/^\/updatechattitle/i) >= 0) {
-
       global.lastAction = 'updatechattitle'
-
     }
   }
-
-
 };
 
 module.exports = moderation;

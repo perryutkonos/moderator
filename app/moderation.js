@@ -33,6 +33,7 @@ const moderation = data => {
     }
 
     if (text.search(/^\/updatechattitle/i) >= 0) {
+      sendMessage({chat_id, text: 'Введите новое название чата'});
       global.lastAction = 'updatechattitle'
     }
   }
